@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:androd="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        androd:layout_constraintBottom_toBottomOf="parent"
+        androd:layout_constraintEnd_toEndOf="parent"
+        androd:layout_constraintStart_toStartOf="parent"
+        androd:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000000">
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:textAlignment="center"
+                android:inputType="textPersonName"
+                android:text="Username"
+                android:textColor="#ffffff"
+                androd:layout_constraintBottom_toTopOf="@+id/phone_number"
+                androd:layout_constraintEnd_toEndOf="parent"
+                androd:layout_constraintHorizontal_bias="0.506"
+                androd:layout_constraintStart_toStartOf="parent"
+                androd:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/phone_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"
+                android:textColor="#ffffff"
+                android:text="7********"
+                androd:layout_constraintBottom_toBottomOf="parent"
+                androd:layout_constraintEnd_toEndOf="parent"
+                androd:layout_constraintHorizontal_bias="0.623"
+                androd:layout_constraintStart_toStartOf="parent"
+                androd:layout_constraintTop_toTopOf="parent"
+                androd:layout_constraintWidth_percent="0.4" />
+
+            <TextView
+                android:id="@+id/country_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="+254"
+                android:textColor="#ffffff"
+
+                android:textAlignment="center"
+                android:textSize="14dp"
+                androd:layout_constraintBottom_toBottomOf="parent"
+                androd:layout_constraintEnd_toEndOf="parent"
+                androd:layout_constraintHorizontal_bias="0.291"
+                androd:layout_constraintStart_toStartOf="parent"
+                androd:layout_constraintTop_toTopOf="parent"
+                androd:layout_constraintVertical_bias="0.497"
+                androd:layout_constraintWidth_percent="0.2" />
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:background="@color/colorAccent"
+                androd:layout_constraintBottom_toBottomOf="parent"
+                androd:layout_constraintEnd_toEndOf="parent"
+                androd:layout_constraintHorizontal_bias="0.278"
+                androd:layout_constraintStart_toStartOf="parent"
+                androd:layout_constraintTop_toBottomOf="@+id/phone_number"
+                androd:layout_constraintVertical_bias="0.372"
+                androd:layout_editor_absoluteX="127dp"
+                androd:layout_editor_absoluteY="162dp" />
+
+            <Button
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:background="#BC2D14"
+
+                androd:layout_constraintBottom_toBottomOf="parent"
+                androd:layout_constraintEnd_toEndOf="parent"
+                androd:layout_constraintHorizontal_bias="0.746"
+                androd:layout_constraintStart_toStartOf="parent"
+                androd:layout_constraintTop_toBottomOf="@+id/phone_number"
+                androd:layout_constraintVertical_bias="0.372"
+                androd:layout_editor_absoluteX="127dp"
+                androd:layout_editor_absoluteY="162dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

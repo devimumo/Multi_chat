@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "388001951061",
+    "firebase_url": "https://php-firebase-notification.firebaseio.com",
+    "project_id": "php-firebase-notification",
+    "storage_bucket": "php-firebase-notification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388001951061:android:f025bbf74890dbc1e7d3dc",
+        "android_client_info": {
+          "package_name": "com.example.firebasepushnotificationswithphp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388001951061-uj117vobgb4fmeeamvbhbmoft57o7n2p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXl8ycMjHctS-puBGOyA4QakLs4-sB0XY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388001951061-uj117vobgb4fmeeamvbhbmoft57o7n2p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

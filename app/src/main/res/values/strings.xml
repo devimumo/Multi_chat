@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">FirebasePushNotificationswith php</string>
+    <string name="date_format">dd/M/yyyy hh:mm:ss</string>
+    <string name="date_format_time_only">hh:mm:ss</string>
+    <string name="date_format_year_only">dd/MM/yyyy</string>
+    <string name="date_value">yyyyMMddhhmmss</string>
+    <string name="title_activity_chat">chat</string>
+    <string name="title_home">Chats</string>
+    <string name="title_dashboard">My account</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_chats_activity">Chats_activity</string>
+    <string name="chats_list">Conversations</string>
+    <string name="my_account">My account</string>
+    <string name="save">save</string>
+    <string name="cancel">cancel</string>
+
+</resources>

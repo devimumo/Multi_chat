@@ -1,0 +1,2 @@
+rootProject.name='FirebasePushNotificationswith php'
+include ':app'
