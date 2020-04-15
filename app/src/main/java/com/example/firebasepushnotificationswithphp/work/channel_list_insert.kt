@@ -2,14 +2,9 @@ package com.example.firebasepushnotificationswithphp.work
 
 import android.content.Context
 import android.util.Log
-import android.view.View
-import com.example.firebasepushnotificationswithphp.MainActivity
-import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.channel_list_chat_entity
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.channel_list_entity
-import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.channel_list_message_payload
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db_instanse.channel_list_db_instanse
 import com.google.firebase.messaging.RemoteMessage
-import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,15 +13,15 @@ class channel_list_insert {
 
 
 
-    fun insert_data_to_channel_list_chats(remoteMessage: RemoteMessage,context: Context) {
+    fun insert_data_to_channel_list_chats(data: String,context: Context) {
 
-        val data=remoteMessage.data["message"]
+       // val data=remoteMessage.data["message"]
 
         val jsonObject=JSONObject(data)
 
 Log.d("message_from",data)
         var channel_list_data = channel_list_entity()
-        var message_payload_data = channel_list_message_payload(0)
+        //var message_payload_data = channel_list_message_payload(0)
 
 
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
@@ -36,7 +31,6 @@ Log.d("message_from",data)
         //  val unique_id="+254713836954.+254c723401134".plus(currentDate);
 
         //  data.time_created=currentDate
-        var uuuuid = "+254713836954.+254723401134".plus(currentDate)
 
             var time_created=sdf_time_created.format(Date())
 
@@ -46,6 +40,11 @@ Log.d("message_from",data)
             var guest_phonenumber=jsonObject.getString("sender_phone_number")
             var chat_snippet=jsonObject.getString("mesu")
             var username=jsonObject.getString("username")
+        var time_in_unix=jsonObject.getString("time_kutuma")
+
+
+        var uuuuid = current_user_phonenumber+"."+guest_phonenumber.plus(currentDate)
+
         channel_list_data.chat_snippet = chat_snippet;
         channel_list_data.current_user_phonenumber = current_user_phonenumber;
         channel_list_data.guest_phonenumber =guest_phonenumber ;
@@ -54,12 +53,13 @@ Log.d("message_from",data)
         channel_list_data.unique_id = unique_id
         channel_list_data.messageid = uuuuid
             channel_list_data.username = username;
+        channel_list_data.time_in_unix = time_in_unix;
 
 
 
             //  val context=MainActivity()
         val instance = channel_list_db_instanse()
-        instance.insert_data_to_db(context,message_payload_data,channel_list_data)
+        instance.insert_data_to_db(context,channel_list_data)
 
 
 
@@ -67,15 +67,15 @@ Log.d("message_from",data)
 
     }
 
-    fun update_data_to_channel_list(remoteMessage: RemoteMessage, context: Context) {
+    fun update_data_to_channel_list(data: String, context: Context) {
 
-        val data=remoteMessage.data["message"]
+     //   val data=remoteMessage.data["message"]
 
         val jsonObject=JSONObject(data)
 
         Log.d("message_from",data)
         var channel_list_data = channel_list_entity()
-        var message_payload_data = channel_list_message_payload(0)
+        //var message_payload_data = channel_list_message_payload(0)
 
 
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
@@ -94,8 +94,9 @@ Log.d("message_from",data)
         var guest_phonenumber=jsonObject.getString("sender_phone_number")
         var chat_snippet=jsonObject.getString("mesu")
         var username=jsonObject.getString("username")
+        var time_in_unix=jsonObject.getString("time_kutuma")
 
-        var uuuuid = currentDate+"."+guest_phonenumber.plus(currentDate)
+        var uuuuid = current_user_phonenumber+"."+guest_phonenumber.plus(currentDate)
 
         channel_list_data.chat_snippet = chat_snippet;
         channel_list_data.current_user_phonenumber = current_user_phonenumber;
@@ -105,12 +106,15 @@ Log.d("message_from",data)
         channel_list_data.unique_id = unique_id
         channel_list_data.messageid = uuuuid
         channel_list_data.username = username;
+        channel_list_data.time_in_unix = time_in_unix;
 
+Log.d("unique_id",unique_id)
+        Log.d("time_in_unix",time_in_unix)
 
 
         //  val context=MainActivity()
         val instance = channel_list_db_instanse()
-        instance.update_channel_list(context,message_payload_data,channel_list_data)
+        instance.update_channel_list(context,channel_list_data)
     }
 
 }

@@ -8,8 +8,8 @@ import io.reactivex.Completable
 @Dao
 interface chat_channel_list_DAO {
 
-    @Query("SELECT * FROM channel_list_message_payload_table")
-    fun select_message_payload(): List<channel_list_message_payload>
+    @Query("SELECT * FROM channel_list_message_payload_table WHERE unique_id LIKE (:unique_id )")
+    fun select_message_payload(unique_id: String): List<channel_list_message_payload>
 
     @Query("SELECT * FROM channel_list_chat_entity")
     fun getAll(): List<channel_list_chat_entity>
@@ -33,8 +33,8 @@ interface chat_channel_list_DAO {
     @Insert
     fun insertAll_message_payload(vararg users_message_payloads: channel_list_message_payload)
 
-    @Query("UPDATE channel_list_table SET username = :username, chat_snippet = :chat_snippet ,time_sendorreceived= :time_sendorreceived WHERE unique_id =:unique_id")
-    fun update_channel_list(username: String,chat_snippet: String,time_sendorreceived: String,unique_id: String)
+    @Query("UPDATE channel_list_table SET username = :username, chat_snippet = :chat_snippet ,time_sendorreceived= :time_sendorreceived,time_in_unix=:time_in_unix  WHERE unique_id =:unique_id")
+    fun update_channel_list(username: String,chat_snippet: String,time_sendorreceived: String,unique_id: String,time_in_unix: String)
 
 
 

@@ -5,22 +5,38 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "channel_list_message_payload_table")
-data class channel_list_message_payload (  @PrimaryKey(autoGenerate = true)
-                                           var id: Int,
-                                           @ColumnInfo
-                                           var unique_id: String="",
+data class channel_list_message_payload (
+
+
+
+    @PrimaryKey
+    var messageid:String="" ,
+    @ColumnInfo
+    var unique_id: String="",
     //time channel was created column
-                                           @ColumnInfo(name= "time_created")
-                                           var time_send: String="",
+    @ColumnInfo(name= "time_created")
+    var time_created: String="",
     //current user phone number
-                                           @ColumnInfo(name= "current_user_phonenumber")
-                                           var current_user_phonenumber: String="",
+    @ColumnInfo(name= "current_user_phonenumber")
+    var current_user_phonenumber: String="",
     // guest phone number
-                                           @ColumnInfo(name= "guest_phonenumber")
-                                           var guest_phonenumber: String="",
+    @ColumnInfo(name= "guest_phonenumber")
+    var guest_phonenumber: String="",
 
-                                           @ColumnInfo(name= "message")
-                                           var message: String=""){
+    @ColumnInfo(name= "chat_snippet")
+    var chat_snippet: String="",
+//
+    @ColumnInfo(name= "time_sendorreceived")
+    var time_sendorreceived: String="",
+    @ColumnInfo(name= "time_in_unix")
+    var time_in_unix: String="",
 
+    @ColumnInfo(name= "username")
+    var username: String="",
+    //
+    @ColumnInfo(name= "from")
+    var from: String=""
+
+){
 
 }

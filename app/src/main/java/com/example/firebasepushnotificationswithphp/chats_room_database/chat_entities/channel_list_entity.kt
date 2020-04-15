@@ -32,6 +32,8 @@ var chat_snippet: String="",
 //
 @ColumnInfo(name= "time_sendorreceived")
 var time_sendorreceived: String="",
+    @ColumnInfo(name= "time_in_unix")
+    var time_in_unix: String="",
 
     @ColumnInfo(name= "username")
 var username: String=""

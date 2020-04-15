@@ -10,18 +10,19 @@ import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 
-class channel_list_update {
+class Chats_payload_insert {
 
 
-    fun update_channel_list(remoteMessage: RemoteMessage, context: Context) {
 
-        val data=remoteMessage.data["message"]
+
+    fun insert_data_to_chats_payload(data: String, context: Context,from: String) {
+
+      //  val data=remoteMessage.data["message"]
 
         val jsonObject= JSONObject(data)
 
         Log.d("message_from",data)
-        var channel_list_data = channel_list_entity()
-       // var message_payload_data = channel_list_message_payload(0)
+        var chats_message_payload = channel_list_message_payload()
 
 
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
@@ -31,10 +32,7 @@ class channel_list_update {
         //  val unique_id="+254713836954.+254c723401134".plus(currentDate);
 
         //  data.time_created=currentDate
-
         var time_created=sdf_time_created.format(Date())
-
-
 
         var time_sendorreceived=jsonObject.getString("time_send")
         var unique_id=jsonObject.getString("unique_id")
@@ -44,24 +42,25 @@ class channel_list_update {
         var username=jsonObject.getString("username")
         var time_in_unix=jsonObject.getString("time_kutuma")
 
+
         var uuuuid = current_user_phonenumber+"."+guest_phonenumber.plus(currentDate)
 
-        channel_list_data.chat_snippet = chat_snippet;
-        channel_list_data.current_user_phonenumber = current_user_phonenumber;
-        channel_list_data.guest_phonenumber =guest_phonenumber ;
-        channel_list_data.time_created = time_created;
-        channel_list_data.time_sendorreceived = time_sendorreceived;
-        channel_list_data.unique_id = unique_id
-        channel_list_data.messageid = uuuuid
-        channel_list_data.username = username;
-        channel_list_data.time_in_unix = time_in_unix;
-
+        chats_message_payload.chat_snippet = chat_snippet;
+        chats_message_payload.current_user_phonenumber = current_user_phonenumber;
+        chats_message_payload.guest_phonenumber =guest_phonenumber ;
+        chats_message_payload.time_created = time_created;
+        chats_message_payload.time_sendorreceived = time_sendorreceived;
+        chats_message_payload.unique_id = unique_id
+        chats_message_payload.messageid = uuuuid
+        chats_message_payload.username = username;
+        chats_message_payload.time_in_unix = time_in_unix;
+        chats_message_payload.from=from
 
 
 
         //  val context=MainActivity()
         val instance = channel_list_db_instanse()
-        instance.update_channel_list(context,channel_list_data)
+        instance.insert_data_chats_to_db(context,chats_message_payload)
 
 
 
