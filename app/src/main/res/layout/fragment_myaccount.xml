@@ -10,30 +10,31 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintHeight_percent="0.9">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#000000"
-            >
+            android:background="#000000">
 
             <EditText
                 android:id="@+id/username_edittext"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:ems="10"
                 android:background="@drawable/cardview_balance_background"
+                android:ems="10"
 
                 android:inputType="textPersonName"
                 android:text="Username"
-                app:layout_constraintHeight_percent="0.145"
                 android:textAlignment="center"
                 android:textColor="#ffffff"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.145"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -43,15 +44,15 @@
                 android:id="@+id/phone_number_edittext"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:background="@drawable/cardview_balance_background"
                 android:ems="10"
                 android:inputType="number"
-                android:background="@drawable/cardview_balance_background"
-android:paddingLeft="5dp"
+                android:paddingLeft="5dp"
                 android:text="7********"
                 android:textColor="#ffffff"
-                app:layout_constraintHeight_percent="0.15"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.15"
                 app:layout_constraintHorizontal_bias="0.593"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

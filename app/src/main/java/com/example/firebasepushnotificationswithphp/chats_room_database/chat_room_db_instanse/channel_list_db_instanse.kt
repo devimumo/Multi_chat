@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import androidx.room.Room.databaseBuilder
-import com.example.firebasepushnotificationswithphp.Hosting_activity
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.channel_list_entity
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.channel_list_message_payload
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db.channel_list_db
@@ -13,35 +12,39 @@ import com.example.firebasepushnotificationswithphp.ui.chats_list.Chatfragment
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
-
+var ctr: Context? =null
 var statement_data: String=""
 class channel_list_db_instanse {
     val toaster: com.example.firebasepushnotificationswithphp.work.Toast =
         com.example.firebasepushnotificationswithphp.work.Toast()
 
- fun  select_user_data(view: View, context: Context)
+ fun  select_user_data( context: Context)
 {
+//    var activity=Hosting_activity()
+ //ctr= activity.applicationContext!!
+    var db: channel_list_db?=null
+
+    db =context?.let { databaseBuilder(it, channel_list_db::class.java, "chat__db").build() }
 
     CoroutineScope(Dispatchers.IO).launch {
 
-        val db = databaseBuilder(context, channel_list_db::class.java, "chat__db").build()
 
-        val des=        db.chat_channel_list_DAO().select_data()
+        val des= db?.chat_channel_list_DAO()?.select_data()
         val vvvv = Gson()
 
         var statement_data=vvvv.toJson(des).toString()
         Log.d("statement_data", "channel short list data converted to json"+statement_data)
       withContext(Main){
           val inu=Chatfragment()
-          inu.retreive_channel_list_payload(view,statement_data)
+          inu.retreive_channel_list_payload(statement_data)
       }
     }
 }
 
-    fun select_message_payload_data(view: View, context: Context,unique_id: String)
+    fun select_message_payload_data( view: View,context: Context,unique_id: String)
     {
 
-
+Log.d("unique_idds",unique_id)
             CoroutineScope(Dispatchers.IO).launch {
 
                 val db = databaseBuilder(context, channel_list_db::class.java, "chat__db").build()

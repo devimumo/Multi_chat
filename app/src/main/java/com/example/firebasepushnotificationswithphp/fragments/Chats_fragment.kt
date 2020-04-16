@@ -9,23 +9,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.transition.Visibility
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import com.example.firebasepushnotificationswithphp.R
 import com.example.firebasepushnotificationswithphp.adapter.Chats_adapter
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db_instanse.channel_list_db_instanse
 import com.example.firebasepushnotificationswithphp.data_class.Chats_data_class
-import com.example.firebasepushnotificationswithphp.data_class.remote_payload_json
 import com.example.firebasepushnotificationswithphp.ui.chats_list.mesu
 import com.example.firebasepushnotificationswithphp.work.Check_users_existense
-import com.example.firebasepushnotificationswithphp.work.Volley_ErrorListener_Handler
 import com.example.firebasepushnotificationswithphp.work.send_message
 import kotlinx.android.synthetic.main.fragment_chats_fragment.*
 import kotlinx.android.synthetic.main.fragment_chats_fragment.view.*
-import kotlinx.android.synthetic.main.hosting_activity.view.*
+import kotlinx.android.synthetic.main.hosting_activity.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -42,6 +35,7 @@ val chats_payload_arraylist = ArrayList<Chats_data_class>()
 
 val instance= channel_list_db_instanse()
 
+
 class Chats_fragment : Fragment() {
 
     override fun onCreateView(
@@ -52,7 +46,9 @@ class Chats_fragment : Fragment() {
         var view= inflater.inflate(R.layout.fragment_chats_fragment, container, false)
         val adap = Chats_adapter(chats_payload_arraylist, view.context)
 
+activity?.nav_view?.visibility=View.GONE
 
+        //getting variable from channnels adapter on click (recycler view item)fragment to this fragment
         val bundle = this.arguments
         if (bundle != null) {
             var username = bundle["username"].toString()
@@ -65,7 +61,7 @@ class Chats_fragment : Fragment() {
             instance.select_message_payload_data(view,view.context,unique_id)
 
             Toast.makeText(view.context,username,Toast.LENGTH_LONG).show()
-      //  view.username_here.text=username.toString()
+            //  view.username_here.text=username.toString()
 
         }
 
@@ -76,7 +72,7 @@ class Chats_fragment : Fragment() {
             var current_user_phonenumber= bundle?.get("current_user_phonenumber").toString()
             var guest_phonenumber= bundle?.get("guest_phonenumber").toString()
 
-val message_to_send=chat_message.text.toString()
+            val message_to_send=chat_message.text.toString()
 
             val sdf = SimpleDateFormat(" hh:mm a")
             val sdf_time_created = SimpleDateFormat("yyyyMddhhmmss")
@@ -107,24 +103,27 @@ val message_to_send=chat_message.text.toString()
 
             adap.notifyDataSetChanged()
             recycler_view.adapter = adap
-var send_message_instanse=send_message()
-              send_message_instanse.send_message(remote_json.toString(),view)
+            var send_message_instanse=send_message()
+            send_message_instanse.send_message(remote_json.toString(),view)
             var check_check_id_instanse= Check_users_existense()
             check_check_id_instanse.check_if_user_exists(remote_json.toString(),"resident",view.context)
+
+
+            instance.select_message_payload_data(view,view.context,unique_id)
 
             Log.d("currentDate",remote_json.toString())
 
         }
 
-  return view
+        return view
     }
 
 
 
 
 
-fun chats_recycler_view(view: View, vv: String)
-{
+    fun chats_recycler_view(view: View, vv: String)
+    {
 
         val recycler_view = view.chats_list_recycler_view
 
@@ -134,13 +133,13 @@ fun chats_recycler_view(view: View, vv: String)
         val time_retreived = time_form.format(Date())
         Log.d("chat_recycler", "time retreived:" + time_retreived + "\n" + vv)
 
-    val jsonObject = JSONArray(vv)
+        val jsonObject = JSONArray(vv)
         // mesu.clear()
         mesu.clear()
-    chats_payload_arraylist.clear()
+        chats_payload_arraylist.clear()
 
 
-    for (i in 0..jsonObject.length() - 1) {
+        for (i in 0..jsonObject.length() - 1) {
 
 
             val chats_data_strings = jsonObject.getJSONObject(i)
@@ -153,21 +152,22 @@ fun chats_recycler_view(view: View, vv: String)
 
                 chats_data_strings.getString("chat_snippet"),
                 chats_data_strings.getString("time_sendorreceived"),
-                    chats_data_strings.getString("time_in_unix"),
+                chats_data_strings.getString("time_in_unix"),
                 chats_data_strings.getString("username"),
-                        chats_data_strings.getString("from")
+                chats_data_strings.getString("from")
 
 
 
 
             )
-        val adap = Chats_adapter(chats_payload_arraylist, view.context)
+            val adap = Chats_adapter(chats_payload_arraylist, view.context)
 
 
             chats_payload_arraylist.add(chats_data)
             recycler_view.layoutManager = LinearLayoutManager(view.context)
             adap.notifyDataSetChanged()
             recycler_view.adapter = adap
+            (recycler_view.layoutManager as LinearLayoutManager).setStackFromEnd(true)
 
         }
 
@@ -175,7 +175,7 @@ fun chats_recycler_view(view: View, vv: String)
 
 
 
-    
 
-}
+
+    }
 }

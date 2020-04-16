@@ -8,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.replace
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebasepushnotificationswithphp.R
 import com.example.firebasepushnotificationswithphp.data_class.Channel_data_class
 import com.example.firebasepushnotificationswithphp.fragments.Chats_fragment
 import kotlinx.android.synthetic.main.chat_channel_list.view.*
+import kotlinx.android.synthetic.main.hosting_activity.*
+import kotlinx.android.synthetic.main.hosting_activity.view.*
 import java.util.*
 
 
@@ -86,10 +89,9 @@ return  channel_list.size
             val frg=Chats_fragment()
             frg.arguments=bundle
 
-
-
-            activity.supportFragmentManager.beginTransaction()
-                .replace(R.id.hosting_container, frg).addToBackStack("frg").commit()
+           var rest= activity.getResources().getIdentifier("frame_cont", "id",activity.getPackageName());
+            activity.supportFragmentManager.beginTransaction()                .replace(R.id.hosting_container, frg,"grgg").addToBackStack("grgg").commit()
+            // .replace(rest, frg).addToBackStack(null).commit()
 
 
         }

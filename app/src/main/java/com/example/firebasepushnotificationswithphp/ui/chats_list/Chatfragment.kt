@@ -15,6 +15,7 @@ import com.example.firebasepushnotificationswithphp.adapter.Channel_adapter
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db_instanse.channel_list_db_instanse
 import com.example.firebasepushnotificationswithphp.data_class.Channel_data_class
 import com.example.firebasepushnotificationswithphp.fragments.Chats_fragment
+import com.example.firebasepushnotificationswithphp.work.Unique_id
 import com.example.firebasepushnotificationswithphp.work.Update_firebase_instance_id
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
@@ -34,7 +35,7 @@ val mesu = ArrayList<Channel_data_class>()
 //var contribution_dataa = Channel_data_class("","","","","")
 
 val instance= channel_list_db_instanse()
-
+var root_view: View? =null
 class Chatfragment : Fragment() {
 
 
@@ -44,18 +45,41 @@ class Chatfragment : Fragment() {
     ): View? {
         // val rec: RecyclerView=channel_list_recycler_view.
 
-        val root_view = inflater.inflate(R.layout.fragment_chats_list, container, false)
+        root_view = inflater.inflate(R.layout.fragment_chats_list, container, false)
+
+        var vv= root_view
+        vv?.floating_action_button?.setOnClickListener {
 
 
+            var instanses=Unique_id()
+            var uniqueIdii= instanses.get_unique_id("254731763426","254713836954")
+            Toast.makeText(vv.context,"floating"+uniqueIdii,Toast.LENGTH_LONG).show()
 
-        instance.select_user_data(root_view,root_view.context)
+        }
+
+        if (vv != null) {
+
+            root_view?.context?.let { instance.select_user_data(it) }
+
+        }
 
 
         return root_view
     }
 
-    suspend fun retreive_channel_list_payload(root_view: View?,channel_list_payload:String) {
+    fun call_uuu()
+    {
+
+        Log.d("cllade_uu","called")
+        root_view?.context?.let { instance.select_user_data(it) }
+
+
+    }
+
+    suspend fun retreive_channel_list_payload(channel_list_payload:String) {
         //getting channel list from db instanse
+
+        var root_view= root_view
        // val channel_list_payload = root_view?.context?.let { instance.select_user_data(it) }
 
         if (channel_list_payload != null) {
@@ -246,6 +270,8 @@ class Chatfragment : Fragment() {
             recycler_view.layoutManager = LinearLayoutManager(view.context)
 //            adap.notifyDataSetChanged()
             recycler_view.adapter = adap
+           // (recycler_view.layoutManager as LinearLayoutManager).setStackFromEnd(true);
+
         }
 
         //val recycler_view : RecyclerView= channel_list_recycler_view

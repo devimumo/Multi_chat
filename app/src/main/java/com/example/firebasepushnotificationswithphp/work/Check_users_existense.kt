@@ -2,7 +2,10 @@ package com.example.firebasepushnotificationswithphp.work
 
 import android.content.Context
 import android.util.Log
+import android.view.View
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db_instanse.channel_list_db_instanse
+import com.example.firebasepushnotificationswithphp.ui.chats_list.Chatfragment
+import com.example.firebasepushnotificationswithphp.ui.chats_list.instance
 import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -51,6 +54,19 @@ class Check_users_existense
             if (data != null) {
                 chats_payload_insert.insert_data_to_chats_payload(data,context,from)
             }
+
+            var view: Chatfragment =Chatfragment()
+            var vv=view.activity
+          //   instance.select_user_data(View.C)
+
+            var instanses= Unique_id()
+            //var uniqueIdii= instanses.get_unique_id(current_user_phonenumber,guest_phonenumber)
+       //     com.example.firebasepushnotificationswithphp.fragments.instance.select_message_payload_data(context,unique_id)
+
+            var instanseed: Chatfragment =Chatfragment()
+            instanseed.call_uuu()
+
+
         }
         else
         {
@@ -64,6 +80,10 @@ class Check_users_existense
             if (data != null) {
                 chats_payload_insert.insert_data_to_chats_payload(data,context,from)
             }
+           // com.example.firebasepushnotificationswithphp.fragments.instance.select_message_payload_data(context,unique_id)
+
+            var instanseed: Chatfragment =Chatfragment()
+instanseed.call_uuu()
 
         }
 
