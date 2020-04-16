@@ -8,11 +8,11 @@
 
 
     <TextView
-        android:id="@+id/message"
+        android:id="@+id/message_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="#009688"
+        android:background="#3C009688"
         android:maxWidth="288dp"
         android:minWidth="140dp"
         android:minHeight="50dp"
@@ -22,40 +22,41 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.1"
-        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintHorizontal_bias="0.154"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/time_send"
+        android:id="@+id/time_send_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="9.47am"
         android:textSize="7.9dp"
         android:textColor="@color/blackest"
         android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="@+id/message"
-        app:layout_constraintEnd_toEndOf="@+id/message"
+        app:layout_constraintBottom_toBottomOf="@+id/message_2"
+        app:layout_constraintEnd_toEndOf="@+id/message_2"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/message"
-        app:layout_constraintTop_toTopOf="@+id/message"
+        app:layout_constraintStart_toStartOf="@+id/message_2"
+        app:layout_constraintTop_toTopOf="@+id/message_2"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/username_"
+        android:id="@+id/username_2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginEnd="44dp"
+
         android:text="username"
         android:textAlignment="center"
-
         android:textColor="@color/blackest"
         android:textSize="13dp"
-        app:layout_constraintBottom_toBottomOf="@+id/message"
-        app:layout_constraintEnd_toStartOf="@+id/message"
+        app:layout_constraintBottom_toBottomOf="@+id/message_2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.24"
-        app:layout_constraintHorizontal_bias="0.045"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/message"
-        app:layout_constraintVertical_bias="0.483" />
+        app:layout_constraintHorizontal_bias="0.643"
+        app:layout_constraintStart_toEndOf="@+id/message"
+        app:layout_constraintTop_toTopOf="@+id/message_2"
+        app:layout_constraintVertical_bias="0.457" />
 </androidx.constraintlayout.widget.ConstraintLayout>

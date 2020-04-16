@@ -53,7 +53,6 @@ class Chats_fragment : Fragment() {
         val adap = Chats_adapter(chats_payload_arraylist, view.context)
 
 
-
         val bundle = this.arguments
         if (bundle != null) {
             var username = bundle["username"].toString()
@@ -155,7 +154,8 @@ fun chats_recycler_view(view: View, vv: String)
                 chats_data_strings.getString("chat_snippet"),
                 chats_data_strings.getString("time_sendorreceived"),
                     chats_data_strings.getString("time_in_unix"),
-                chats_data_strings.getString("username")
+                chats_data_strings.getString("username"),
+                        chats_data_strings.getString("from")
 
 
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import androidx.room.Room.databaseBuilder
+import com.example.firebasepushnotificationswithphp.Hosting_activity
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.channel_list_entity
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.channel_list_message_payload
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db.channel_list_db
@@ -133,6 +134,14 @@ var username=channelListData.username
 
         db.chat_channel_list_DAO().insertAll_message_payload(chatsMessagePayload)
         Log.d("insert_chats",chatsMessagePayload.toString())
+CoroutineScope(Dispatchers.IO).launch {
+
+
+
+//    var ins=Hosting_activity()
+   // ins.call_not()
+}
+
     }
 
 }

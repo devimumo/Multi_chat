@@ -19,11 +19,15 @@ import java.util.*
 class Channel_adapter (var channel_list: ArrayList<Channel_data_class>,val c: Context): RecyclerView.Adapter<Channel_adapter.ViewHolder>() {
 
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Channel_adapter.ViewHolder {
+
         val view= LayoutInflater.from(parent.context).inflate(R.layout.chat_channel_list,parent,false)
 
 
-        return  ViewHolder(view)
+     return ViewHolder(view)
+
+
     }
 
     override fun getItemCount(): Int {
@@ -34,7 +38,6 @@ return  channel_list.size
     override fun onBindViewHolder(holder: Channel_adapter.ViewHolder, position: Int) {
 
         val user_data: Channel_data_class=channel_list[position]
-
 
        // holder?.itemview.rem
         holder?.itemview.username.text=user_data.username

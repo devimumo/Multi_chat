@@ -20,6 +20,8 @@ class Chats_data_class(
     var time_sendorreceived: String="",
     var time_in_unix: String="",
 
-    var username: String=""
+    var username: String="",
+    var from: String=""
+
 ) {
 }
