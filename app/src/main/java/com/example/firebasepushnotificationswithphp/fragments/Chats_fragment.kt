@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.example.firebasepushnotificationswithphp.adapter.Chats_adapter
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db_instanse.channel_list_db_instanse
 import com.example.firebasepushnotificationswithphp.data_class.Chats_data_class
 import com.example.firebasepushnotificationswithphp.ui.chats_list.mesu
+import com.example.firebasepushnotificationswithphp.ui.chats_list.root_view
 import com.example.firebasepushnotificationswithphp.work.Check_users_existense
 import com.example.firebasepushnotificationswithphp.work.send_message
 import kotlinx.android.synthetic.main.fragment_chats_fragment.*
@@ -34,6 +36,7 @@ import kotlin.collections.ArrayList
 val chats_payload_arraylist = ArrayList<Chats_data_class>()
 
 val instance= channel_list_db_instanse()
+var root_view__: View?= null
 
 
 class Chats_fragment : Fragment() {
@@ -43,8 +46,10 @@ class Chats_fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view= inflater.inflate(R.layout.fragment_chats_fragment, container, false)
-        val adap = Chats_adapter(chats_payload_arraylist, view.context)
+        root_view__= inflater.inflate(R.layout.fragment_chats_fragment, container, false)
+
+        var root_view_= root_view__
+        val adap = Chats_adapter(chats_payload_arraylist, root_view_!!.context)
 
 activity?.nav_view?.visibility=View.GONE
 
@@ -58,15 +63,18 @@ activity?.nav_view?.visibility=View.GONE
 
             Log.d("chat_bundle",username)
 
-            instance.select_message_payload_data(view,view.context,unique_id)
+            instance.select_message_payload_data(root_view_.context,unique_id)
 
-            Toast.makeText(view.context,username,Toast.LENGTH_LONG).show()
+            Toast.makeText(root_view_.context,username,Toast.LENGTH_LONG).show()
             //  view.username_here.text=username.toString()
 
         }
 
 
-        view.send.setOnClickListener {
+        root_view_.send.setOnClickListener {
+
+
+
             var username = bundle?.get("username").toString()
             var unique_id = bundle?.get("unique_id").toString()
             var current_user_phonenumber= bundle?.get("current_user_phonenumber").toString()
@@ -82,7 +90,7 @@ activity?.nav_view?.visibility=View.GONE
 
             val MyPreferences = "Chats"
             val sharedPreferences =
-                view?.context?.getSharedPreferences(MyPreferences, Context.MODE_PRIVATE)
+                root_view_?.context?.getSharedPreferences(MyPreferences, Context.MODE_PRIVATE)
             val phone_number = sharedPreferences?.getString("phone_number", "")
             val usernames = sharedPreferences?.getString("username", " -----")
 
@@ -99,33 +107,34 @@ activity?.nav_view?.visibility=View.GONE
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
-            val recycler_view = view.chats_list_recycler_view
+            val recycler_view = root_view_.chats_list_recycler_view
 
             adap.notifyDataSetChanged()
             recycler_view.adapter = adap
             var send_message_instanse=send_message()
-            send_message_instanse.send_message(remote_json.toString(),view)
+            send_message_instanse.send_message(remote_json.toString(),root_view_)
             var check_check_id_instanse= Check_users_existense()
-            check_check_id_instanse.check_if_user_exists(remote_json.toString(),"resident",view.context)
+            check_check_id_instanse.check_if_user_exists(remote_json.toString(),"resident",root_view_.context)
 
 
-            instance.select_message_payload_data(view,view.context,unique_id)
+            instance.select_message_payload_data(root_view_.context,unique_id)
 
             Log.d("currentDate",remote_json.toString())
 
         }
 
-        return view
+        return root_view_
     }
 
 
+fun fanya_final(view: View,vv: String)
+{
 
 
 
-    fun chats_recycler_view(view: View, vv: String)
-    {
 
-        val recycler_view = view.chats_list_recycler_view
+
+        val recycler_view = view?.chats_list_recycler_view
 
 
 
@@ -160,12 +169,12 @@ activity?.nav_view?.visibility=View.GONE
 
 
             )
-            val adap = Chats_adapter(chats_payload_arraylist, view.context)
+            val adap = view.context?.let { Chats_adapter(chats_payload_arraylist, it) }
 
 
             chats_payload_arraylist.add(chats_data)
             recycler_view.layoutManager = LinearLayoutManager(view.context)
-            adap.notifyDataSetChanged()
+            adap?.notifyDataSetChanged()
             recycler_view.adapter = adap
             (recycler_view.layoutManager as LinearLayoutManager).setStackFromEnd(true)
 
@@ -177,5 +186,22 @@ activity?.nav_view?.visibility=View.GONE
 
 
 
+
+}
+
+
+    fun chats_recycler_view( vv: String)
+    {
+
+        var view_= root_view__
+        if (view_ != null) {
+           fanya_final(view_,vv)
+
+
+        }
+
+
+
     }
+
 }

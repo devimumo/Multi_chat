@@ -24,7 +24,7 @@ class channel_list_db_instanse {
  //ctr= activity.applicationContext!!
     var db: channel_list_db?=null
 
-    db =context?.let { databaseBuilder(it, channel_list_db::class.java, "chat__db").build() }
+    db = context.let { databaseBuilder(it, channel_list_db::class.java, "chat__db").build() }
 
     CoroutineScope(Dispatchers.IO).launch {
 
@@ -41,7 +41,7 @@ class channel_list_db_instanse {
     }
 }
 
-    fun select_message_payload_data( view: View,context: Context,unique_id: String)
+    fun select_message_payload_data( context: Context,unique_id: String)
     {
 
 Log.d("unique_idds",unique_id)
@@ -56,7 +56,7 @@ Log.d("unique_idds",unique_id)
                 Log.d("message_payload_data", "message payload data"+statement_data)
                 withContext(Main){
                   val to_ui=Chats_fragment()
-                   to_ui.chats_recycler_view(view,message_payload)
+                   to_ui.chats_recycler_view(message_payload)
                 }
             }
 

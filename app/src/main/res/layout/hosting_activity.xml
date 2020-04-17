@@ -44,7 +44,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
-        android:background="@drawable/message_back"
+        android:background="@drawable/message_edittext_back"
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

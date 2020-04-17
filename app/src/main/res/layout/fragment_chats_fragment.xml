@@ -1,44 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/chatty"
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".fragments.Chats_fragment">
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
+    <LinearLayout
+        android:id="@+id/scroller"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/senders"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="7dp"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/scroller"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chats_list_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:fillViewport="true"
-            android:paddingBottom="7dp"
-            app:layout_constraintBottom_toTopOf="@+id/chat_message"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.9"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.219">
+            android:layout_weight="0.9"
+            />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/chats_list_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"/>
-        </androidx.core.widget.NestedScrollView>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/senders"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:minHeight="44dp"
+        android:maxHeight="100dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <EditText
+            android:id="@+id/chat_message"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+android:paddingVertical="12dp"
+            android:layout_weight="0.76"
+            android:background="@drawable/message_edittext_back"
+            android:hint="message"
+            android:paddingHorizontal="12dp"
+            android:textSize="22dp" />
 
         <ImageView
             android:id="@+id/send"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
             android:src="@android:drawable/ic_menu_send"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.1"
@@ -46,29 +72,12 @@ android:layout_height="match_parent"
             app:layout_constraintVertical_bias="1.0"
             app:layout_constraintWidth_percent="0.154" />
 
-
-    <EditText
-        android:id="@+id/chat_message"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/message_back"
-        android:hint="message"
-        app:layout_constraintWidth_percent="0.84"
-        android:layout_marginTop="10dp"
-        android:textSize="22dp"
-        android:maxHeight="300dp"
-        android:minHeight="45dp"
-        android:minWidth="200dp"
-        android:maxWidth="330dp"
-        android:layout_marginVertical="10dp"
-        android:paddingHorizontal="12dp"
-        app:layout_constraintHorizontal_bias="0.0006"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
 
 
 

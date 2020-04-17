@@ -67,12 +67,12 @@ class Chatfragment : Fragment() {
         return root_view
     }
 
-    fun call_uuu()
+    fun call_uuu(context: Context)
     {
 
         Log.d("cllade_uu","called")
-        root_view?.context?.let { instance.select_user_data(it) }
-
+      //  root_view?.context?.let { instance.select_user_data(it) }
+        instance.select_user_data(context)
 
     }
 
@@ -80,7 +80,7 @@ class Chatfragment : Fragment() {
         //getting channel list from db instanse
 
         var root_view= root_view
-       // val channel_list_payload = root_view?.context?.let { instance.select_user_data(it) }
+        // val channel_list_payload = root_view?.context?.let { instance.select_user_data(it) }
 
         if (channel_list_payload != null) {
             if (channel_list_payload.isEmpty()) {
@@ -107,7 +107,7 @@ class Chatfragment : Fragment() {
         }
     }
 
-     fun get_instanse_id(view: View, phone_number: String, username: String?) {
+    fun get_instanse_id(view: View, phone_number: String, username: String?) {
 
         val conte = context
         FirebaseInstanceId.getInstance().instanceId
@@ -162,12 +162,12 @@ class Chatfragment : Fragment() {
         } else {
 
 
-          CoroutineScope(Main).launch {
+            CoroutineScope(Main).launch {
                 if (phone_number != null) {
 
 
-                             //   get_instanse_id(view,phone_number,username)
-}
+                    //   get_instanse_id(view,phone_number,username)
+                }
             }
 
 
@@ -189,19 +189,19 @@ class Chatfragment : Fragment() {
         //show dialog
         val mAlertDialog = mBuilder.show()
         //login button click of custom layout
-         mDialogView.save.setOnClickListener {
-             val phone_number=mDialogView.phone_number.text.toString()
-             val username=mDialogView.username.text.toString()
-                 save_user_details(view,phone_number,username)
-                 get_instanse_id(view,phone_number,username)
-             mAlertDialog.dismiss()
+        mDialogView.save.setOnClickListener {
+            val phone_number=mDialogView.phone_number.text.toString()
+            val username=mDialogView.username.text.toString()
+            save_user_details(view,phone_number,username)
+            get_instanse_id(view,phone_number,username)
+            mAlertDialog.dismiss()
 
-         }
-         //cancel button click of custom layout
-         mDialogView.cancel.setOnClickListener {
-             //dismiss dialog
-             mAlertDialog.dismiss()
-         }
+        }
+        //cancel button click of custom layout
+        mDialogView.cancel.setOnClickListener {
+            //dismiss dialog
+            mAlertDialog.dismiss()
+        }
     }
 
     private fun save_user_details(view: View, phoneNumber: String, username: String) {
@@ -227,9 +227,11 @@ class Chatfragment : Fragment() {
 //withContext(Main){
         // mesu.clear()
 
+        var view= root_view
+
         // adap.notifyDataSetChanged()
 
-        val recycler_view = view.channel_list_recycler_view
+        val recycler_view = view?.channel_list_recycler_view
 
 
 
@@ -263,14 +265,22 @@ class Chatfragment : Fragment() {
 
             Log.d("guest_phonenumber",contribution_dataa.guest_phonenumber.toString())
 
-            val adap = Channel_adapter(mesu, view.context)
-            adap.notifyDataSetChanged()
+            val adap = view?.context?.let { Channel_adapter(mesu, it) }
+            if (adap != null) {
+                adap.notifyDataSetChanged()
+            }
 
             mesu.add(contribution_dataa)
-            recycler_view.layoutManager = LinearLayoutManager(view.context)
+            if (recycler_view != null) {
+                if (view != null) {
+                    recycler_view.layoutManager = LinearLayoutManager(view.context)
+                }
+            }
 //            adap.notifyDataSetChanged()
-            recycler_view.adapter = adap
-           // (recycler_view.layoutManager as LinearLayoutManager).setStackFromEnd(true);
+            if (recycler_view != null) {
+                recycler_view.adapter = adap
+            }
+            // (recycler_view.layoutManager as LinearLayoutManager).setStackFromEnd(true);
 
         }
 
@@ -295,6 +305,6 @@ class Chatfragment : Fragment() {
 
 
 }
-  //  chat_fragment(view,vv)
+//  chat_fragment(view,vv)
 
 

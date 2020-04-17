@@ -13,8 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="#009688"
         android:maxWidth="288dp"
+        android:background="@drawable/message_textview_back_resident"
+
         android:minWidth="140dp"
         android:minHeight="50dp"
         android:padding="7dp"
@@ -33,15 +34,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="9.47am"
-        android:textSize="7.9dp"
         android:textColor="@color/blackest"
+        android:textSize="6.9dp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="@+id/message"
         app:layout_constraintEnd_toEndOf="@+id/message"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/message"
         app:layout_constraintTop_toTopOf="@+id/message"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintHorizontal_bias="0.942"
+
+        app:layout_constraintVertical_bias="0.90"
+
+        />
 
     <TextView
         android:id="@+id/username_"
@@ -51,7 +55,7 @@
         android:textAlignment="center"
 
         android:textColor="@color/blackest"
-        android:textSize="13dp"
+        android:textSize="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/message"
         app:layout_constraintEnd_toStartOf="@+id/message"
         app:layout_constraintHeight_percent="0.24"
