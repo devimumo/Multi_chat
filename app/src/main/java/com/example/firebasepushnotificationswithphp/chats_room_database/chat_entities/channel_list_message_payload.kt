@@ -8,8 +8,9 @@ import androidx.room.PrimaryKey
 data class channel_list_message_payload (
 
 
-
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    var chats_id:Int=0 ,
+    @ColumnInfo
     var messageid:String="" ,
     @ColumnInfo
     var unique_id: String="",
