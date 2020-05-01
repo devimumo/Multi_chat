@@ -71,6 +71,8 @@ activity?.nav_view?.visibility=View.GONE
         }
 
 
+
+
         root_view_.send.setOnClickListener {
 
 
@@ -127,14 +129,8 @@ activity?.nav_view?.visibility=View.GONE
     }
 
 
-fun fanya_final(view: View,vv: String)
-{
-
-
-
-
-
-        val recycler_view = view?.chats_list_recycler_view
+    fun fanya_final(view: View,vv: String)
+    {        val recycler_view = view?.chats_list_recycler_view
 
 
 
@@ -187,7 +183,7 @@ fun fanya_final(view: View,vv: String)
 
 
 
-}
+    }
 
 
     fun chats_recycler_view( vv: String)

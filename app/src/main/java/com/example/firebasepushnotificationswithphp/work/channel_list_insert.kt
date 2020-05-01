@@ -44,7 +44,6 @@ Log.d("message_from",data)
 
 
         var uuuuid = current_user_phonenumber+"."+guest_phonenumber.plus(currentDate)
-
         channel_list_data.chat_snippet = chat_snippet;
         channel_list_data.current_user_phonenumber = current_user_phonenumber;
         channel_list_data.guest_phonenumber =guest_phonenumber ;

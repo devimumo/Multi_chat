@@ -10,6 +10,7 @@ import com.example.firebasepushnotificationswithphp.chats_room_database.chat_roo
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db_instanse.channel_list_db_instanse
 import com.example.firebasepushnotificationswithphp.work.Chats_payload_insert
 import com.example.firebasepushnotificationswithphp.work.Check_users_existense
+import com.example.firebasepushnotificationswithphp.work.Insert_intersected_contacts
 import com.example.firebasepushnotificationswithphp.work.channel_list_insert
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -44,7 +45,23 @@ val cont=applicationContext
 
                var check_check_id_instanse=Check_users_existense()
                 if (data != null) {
-                    check_check_id_instanse.check_if_user_exists(data,"guest",cont)
+
+                    val jsonObject = JSONObject(data)
+                    val from_ = jsonObject.getString("from")
+
+                    if (from_.equals("chats"))
+                    {
+                        check_check_id_instanse.check_if_user_exists(data,"guest",cont)
+
+                    }
+                    else
+                    {
+
+                        var contact_insert_instanse=Insert_intersected_contacts()
+                        contact_insert_instanse.insert_data_to_contacts_payload(data,cont)
+
+                    }
+
                 }
 
             } else { // Handle message within 10 seconds

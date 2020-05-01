@@ -66,7 +66,7 @@ return  root_view   }
                     // val vii=View(context)
                     var send_to_server = Update_firebase_instance_id()
 
-                    send_to_server.update_instance_id(view, token, phone_number, username)
+                    send_to_server.update_instance_id(view.context, token, phone_number, username)
                 }
 
                 //  Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()

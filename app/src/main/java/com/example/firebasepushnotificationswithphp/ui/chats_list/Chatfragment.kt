@@ -15,6 +15,7 @@ import com.example.firebasepushnotificationswithphp.adapter.Channel_adapter
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db_instanse.channel_list_db_instanse
 import com.example.firebasepushnotificationswithphp.data_class.Channel_data_class
 import com.example.firebasepushnotificationswithphp.fragments.Chats_fragment
+import com.example.firebasepushnotificationswithphp.fragments.Contacts_list_fragment
 import com.example.firebasepushnotificationswithphp.work.Unique_id
 import com.example.firebasepushnotificationswithphp.work.Update_firebase_instance_id
 import com.google.android.gms.tasks.OnCompleteListener
@@ -47,13 +48,28 @@ class Chatfragment : Fragment() {
 
         root_view = inflater.inflate(R.layout.fragment_chats_list, container, false)
 
+
+
+
+
         var vv= root_view
+
+        vv?.button4?.setOnClickListener {
+            instance.select_contacts_payload(vv.context)
+        }
         vv?.floating_action_button?.setOnClickListener {
 
 
-            var instanses=Unique_id()
-            var uniqueIdii= instanses.get_unique_id("254731763426","254713836954")
-            Toast.makeText(vv.context,"floating"+uniqueIdii,Toast.LENGTH_LONG).show()
+         //   var instanses=Unique_id()
+         //   var uniqueIdii= instanses.get_unique_id("254731763426","254713836954")
+      //      Toast.makeText(vv.context,"floating"+uniqueIdii,Toast.LENGTH_LONG).show()
+            val frg=Contacts_list_fragment()
+
+            Toast.makeText(vv.context,"inastarnsact",Toast.LENGTH_LONG).show()
+
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.hosting_container, frg,"grgg")?.addToBackStack("backstack")?.commit()
+
 
         }
 
@@ -85,7 +101,7 @@ class Chatfragment : Fragment() {
         if (channel_list_payload != null) {
             if (channel_list_payload.isEmpty()) {
                 if (root_view != null) {
-                    get_username_phone_number(root_view)
+                  //  get_username_phone_number(root_view)
                 }
 
             } else {
@@ -93,134 +109,23 @@ class Chatfragment : Fragment() {
 
 
                 //  mesu.clear()
-                Log.d("recycler","starting on recycler")
+               // Log.d("recycler","starting on recycler")
                 if (root_view != null) {
                     if (channel_list_payload != null) {
                         chat_fragment(root_view, channel_list_payload)
                     }
                 }
                 if (root_view != null) {
-                    get_username_phone_number(root_view)
+                   // get_username_phone_number(root_view)
                 }
 
             }
         }
     }
 
-    fun get_instanse_id(view: View, phone_number: String, username: String?) {
-
-        val conte = context
-        FirebaseInstanceId.getInstance().instanceId
-            .addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Log.w("refused", "getInstanceId failed", task.exception)
-                    return@OnCompleteListener
-                }
-
-                // Get new Instance ID token
-                val token = task.result?.token
-
-                // Log and toast
-                // val msg = getString(R.string.msg_token_fmt, token)
-                Log.d("agreed", token)
-                if (token != null) {
-
-                    // val vii=View(context)
-                    var send_to_server = Update_firebase_instance_id()
-
-                    send_to_server.update_instance_id(view, token, phone_number, username)
-                }
-
-                //  Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
-            })
-    }
-
-    fun get_username_phone_number(view: View) {
-        //   val view_HERE=getView()
-
-        val MyPreferences = "Chats"
-        val sharedPreferences =
-            view?.context?.getSharedPreferences(MyPreferences, Context.MODE_PRIVATE)
-        val phone_number = sharedPreferences?.getString("phone_number", "")
-        val username = sharedPreferences?.getString("username", "user name")
-
-
-        if (phone_number.equals("")) {
-
-            Log.d("getting_d","there is no user details")
-
-            Toast.makeText(view.context, "cccccccccccccccccccccc", Toast.LENGTH_LONG).show()
-            alertdialog(view)
-            //val my_account_fragment: my_account_fragment= my_account_fragment()
-            /*  val firstFragment = my_account_fragment()
-    val transaction = getActivity()?.getSupportFragmentManager()?.beginTransaction();
-    transaction?.add(R.id.navigation_myaccount, firstFragment)
-    transaction?.addToBackStack(null);
-
-    transaction?.commit()*/
-
-        } else {
-
-
-            CoroutineScope(Main).launch {
-                if (phone_number != null) {
-
-
-                    //   get_instanse_id(view,phone_number,username)
-                }
-            }
 
 
 
-        }
-        // String session_ide= sharedPreferences.getString("sessions_ids","");
-
-    }
-
-    fun alertdialog(view: View) {
-
-        var context = view.context
-        val mDialogView = LayoutInflater.from(context).inflate(R.layout.get_preferences, null)
-        //AlertDialogBuilder
-        val mBuilder = AlertDialog.Builder(context)
-            .setView(mDialogView)
-
-            .setCancelable(false)
-        //show dialog
-        val mAlertDialog = mBuilder.show()
-        //login button click of custom layout
-        mDialogView.save.setOnClickListener {
-            val phone_number=mDialogView.phone_number.text.toString()
-            val username=mDialogView.username.text.toString()
-            save_user_details(view,phone_number,username)
-            get_instanse_id(view,phone_number,username)
-            mAlertDialog.dismiss()
-
-        }
-        //cancel button click of custom layout
-        mDialogView.cancel.setOnClickListener {
-            //dismiss dialog
-            mAlertDialog.dismiss()
-        }
-    }
-
-    private fun save_user_details(view: View, phoneNumber: String, username: String) {
-
-        val MyPreferences = "Chats"
-        val sharedPreferences =
-            view?.context?.getSharedPreferences(MyPreferences, Context.MODE_PRIVATE)
-
-        val editor = sharedPreferences?.edit()
-        // String phone_number_= phone_number.getText().toString().trim();
-        editor?.remove("username")
-        editor?.remove("phone_number")
-        editor?.putString("phone_number", phoneNumber)
-        editor?.putString("username", username)
-        // editor.putString("phone_numbers",phone_number_);
-        editor?.commit()
-
-
-    }
 
 
     fun chat_fragment(view: View, vv: String) {
@@ -260,7 +165,6 @@ class Chatfragment : Fragment() {
                 contributions_data.getString("unique_id"),
                 contributions_data.getString("username")
 
-
             )
 
             Log.d("guest_phonenumber",contribution_dataa.guest_phonenumber.toString())
@@ -290,18 +194,7 @@ class Chatfragment : Fragment() {
 
     }
 
-    fun open_chats_fragment()
-    {
-        Log.d("fragment_c","its getting here")
-        val fragment2: Fragment =  Chats_fragment();
 
-
-
-
-
-
-
-    }
 
 
 }

@@ -2,16 +2,18 @@ package com.example.firebasepushnotificationswithphp.chats_room_database.chat_ro
 
 import android.content.Context
 import android.util.Log
-import android.view.View
 import androidx.room.Room.databaseBuilder
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.channel_list_entity
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.channel_list_message_payload
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db.channel_list_db
+import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db.contact_list_db
 import com.example.firebasepushnotificationswithphp.fragments.Chats_fragment
+import com.example.firebasepushnotificationswithphp.fragments.Contacts_list_fragment
 import com.example.firebasepushnotificationswithphp.ui.chats_list.Chatfragment
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
+
 var ctr: Context? =null
 var statement_data: String=""
 class channel_list_db_instanse {
@@ -146,6 +148,68 @@ CoroutineScope(Dispatchers.IO).launch {
 }
 
     }
+
+
+
+
+
+
+    fun select_contacts_payload( context: Context)
+    {
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        CoroutineScope(Dispatchers.IO).launch {
+
+            val db = databaseBuilder(context, contact_list_db::class.java, "contacts_db").build()
+
+
+            var jinaa: String="checked"
+            val mesu_payload=db.contact_list_dao().getAll(jinaa)
+            val vvvv = Gson()
+
+            var message_payload=vvvv.toJson(mesu_payload).toString()
+            Log.d("contact_payload", "contacts_payload"+message_payload)
+            withContext(Main){
+               val to_ui=Contacts_list_fragment()
+               to_ui.contacts_list_recycler(message_payload)
+            }
+        }
+
+    }
+
+    suspend fun update_contact_list_num(context: Context,phonenumber: String)
+    {
+
+        Log.d("sevd",phonenumber+"\n")
+
+        val db = databaseBuilder(context, contact_list_db::class.java, "contacts_db").build()
+
+        db.contact_list_dao().update_contact_list_num("checked",phonenumber)
+    }
+
+    fun delete_contact_list(context: Context)
+    {
+        val db = databaseBuilder(context, contact_list_db::class.java, "contacts_db").build()
+
+GlobalScope.launch (Dispatchers.IO){
+
+    db.contact_list_dao().delete_contact_list_table()
+
+}    }
+
+
+ /*  fun update_contact_list(context: Context, contact_intersected_list: ArrayList<String>) {
+
+        val db = databaseBuilder(context, contact_list_db::class.java, "contacts_db").build()
+
+           db.contact_list_dao().update_contact_list(contact_intersected_list)
+
+    }
+*/
 
 }
 

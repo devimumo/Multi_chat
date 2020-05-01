@@ -3,6 +3,7 @@ package com.example.firebasepushnotificationswithphp.chats_room_database.chats_r
 import androidx.room.*
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.*
 import io.reactivex.Completable
+import org.json.JSONArray
 
 
 @Dao
@@ -23,6 +24,9 @@ interface chat_channel_list_DAO {
 
     @Query("DELETE FROM channel_list_table")
     fun delete_from_channel_list()
+/*
+  @Insert
+  fun insert_contact_list_data(vararg insert_contact_list_data:contact_list_entity)*/
 
   @Insert
     fun insertAll(vararg users: channel_list_chat_entity)

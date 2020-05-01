@@ -14,9 +14,9 @@ import com.example.firebasepushnotificationswithphp.chats_room_database.chats_ro
 //val kk=arrayOf(channel_list_chat_entity::class).toString()
 
 //var contacts= arrayOf(contact_list_entity::class)
-@Database(version=1, entities =  [channel_list_message_payload::class , channel_list_chat_entity::class , channel_list_entity::class,contact_list_entity::class ] )
-abstract class channel_list_db :RoomDatabase(){
-    abstract fun chat_channel_list_DAO(): chat_channel_list_DAO
+@Database( entities = arrayOf(contact_list_entity::class) ,version=1 ,exportSchema = false)
+public abstract class contact_list_db :RoomDatabase(){
+   public abstract fun contact_list_dao(): contact_list_dao
 
 
 }

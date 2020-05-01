@@ -1,61 +1,108 @@
 package com.example.firebasepushnotificationswithphp.fragments
 
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
-import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.firebasepushnotificationswithphp.R
-import com.example.firebasepushnotificationswithphp.data_class.contact_data_class
+import com.example.firebasepushnotificationswithphp.adapter.Contacts_intersected_adapter
+import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db_instanse.channel_list_db_instanse
+import com.example.firebasepushnotificationswithphp.data_class.contacts_data_class
+import com.example.firebasepushnotificationswithphp.ui.chats_list.mesu
 import kotlinx.android.synthetic.main.contacts_list.view.*
+import org.json.JSONArray
+import kotlin.collections.ArrayList
+
 
 /**
  * A simple [Fragment] subclass.
  */
+var views: View? =null
+var contacts_db_instanse=channel_list_db_instanse()
+var contacts_payload_arraylist=ArrayList<contacts_data_class>()
 class Contacts_list_fragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view= inflater.inflate(R.layout.contacts_list, container, false)
+        views = inflater.inflate(R.layout.contacts_list, container, false)
 
 
+        var views_cast= views
+        if (views_cast != null) {
+            contacts_db_instanse.select_contacts_payload(views_cast.context)
+        }
 
+      //  requestPermission(view)
 
-    return view
+        return views_cast
     }
 
 
-    fun contas(view: View)
+    fun contacts_list_recycler( vv: String)
     {
 
-        var listView = view.contacts_list
+        Log.d("imefika_hapa","imefika hapa")
 
-       /* val contactModelArrayList = ArrayList<contact_data_class>()
+        var views_cast= views
 
-        val phones = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC")
-        while (phones!!.moveToNext()) {
-            val name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
-            val phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+        val recycler_view = views_cast?.contacts_list
 
-            val contactModel = ContactModel()
-            contactModel.setNames(name)
-            contactModel.setNumbers(phoneNumber)
-            contactModelArrayList!!.add(contactModel)
-            Log.d("name>>", name + "  " + phoneNumber)
+
+
+        val jsonObject = JSONArray(vv)
+        mesu.clear()
+        chats_payload_arraylist.clear()
+
+
+        for (i in 0..jsonObject.length() - 1) {
+
+
+            val contacts_data_string = jsonObject.getJSONObject(i)
+            var contacts_data = contacts_data_class(
+                contacts_data_string.getString("phonenumber"),
+
+                contacts_data_string.getString("name")
+
+
+
+            )
+            Log.d("imefika_phone",jsonObject.length().toString()+contacts_data_string.getString("name"))
+
+
+
+
+            contacts_payload_arraylist.add(contacts_data)
+
+            val adap = views_cast?.context?.let { Contacts_intersected_adapter(contacts_payload_arraylist, it)
+            }
+            recycler_view?.layoutManager = LinearLayoutManager(views_cast?.context)
+            adap?.notifyDataSetChanged()
+            recycler_view?.adapter = adap
+          /*  if (recycler_view != null) {
+                (recycler_view.layoutManager as LinearLayoutManager).setStackFromEnd(true)
+            }*/
+
         }
-        phones.close()
 
-        customAdapter = CustomAdapter(this, contactModelArrayList!!)
-        listView!!.adapter = customAdapter*/
+        //val recycler_view : RecyclerView= channel_list_recycler_view
+
+
+
+
+
+
     }
 
-    }
+
+
+}
+
+
 
 
 

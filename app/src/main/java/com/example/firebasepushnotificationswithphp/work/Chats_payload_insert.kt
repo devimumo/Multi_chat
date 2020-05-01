@@ -2,10 +2,8 @@ package com.example.firebasepushnotificationswithphp.work
 
 import android.content.Context
 import android.util.Log
-import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.channel_list_entity
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.channel_list_message_payload
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db_instanse.channel_list_db_instanse
-import com.google.firebase.messaging.RemoteMessage
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
