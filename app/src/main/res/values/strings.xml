@@ -18,6 +18,7 @@
     <string name="cancel">cancel</string>
     <string name="channel_name">Messages notification</string>
     <string name="app_names">FirebasePushNotificationswith_php</string>
+    <string name="exit_positive">Yes</string>
 
 
 </resources>

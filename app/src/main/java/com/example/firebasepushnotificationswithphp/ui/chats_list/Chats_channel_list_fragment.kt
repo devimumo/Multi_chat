@@ -1,12 +1,14 @@
 package com.example.firebasepushnotificationswithphp.ui.chats_list
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.*
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -80,15 +82,38 @@ class Chatfragment : Fragment() {
         }
 
 
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+onDestroy()
+
+               // vv?.context?.let { onBackPressed(it) }
+            }
+        })
+
         return root_view
     }
 
-    fun call_uuu(context: Context)
+
+
+    fun onBackPressed(context: Context)
     {
 
-        Log.d("cllade_uu","called")
-      //  root_view?.context?.let { instance.select_user_data(it) }
-        instance.select_user_data(context)
+        Log.d("alerted","nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
+
+        val builder = context.let { AlertDialog.Builder(context) }
+        builder.setMessage("Are you sure yo want to exit?")
+            ?.setPositiveButton(R.string.exit_positive,
+                DialogInterface.OnClickListener { dialog, id ->
+                    // FIRE ZE MISSILES!
+
+            })
+            ?.setNegativeButton(R.string.cancel,
+                DialogInterface.OnClickListener { dialog, id ->
+                    // User cancelled the dialog
+                })
+        // Create the AlertDialog object and return it
+        builder.create()
+
 
     }
 

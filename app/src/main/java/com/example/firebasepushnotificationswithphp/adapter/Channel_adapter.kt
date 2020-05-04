@@ -63,14 +63,8 @@ return  channel_list.size
             var chat_snippet=user_data.chat_snippet
             var time_sendorreceived=user_data.time__
 
-            Log.d("guest","time_sendorreceived:"+time_sendorreceived)
 
-
-            //   var time_sendorreceived=user_data.time_sendorreceived
-
-            Log.d("unique_one",unique_id)
-
-
+//Log.d("checki",current_user_phonenumber+"--"+guest_phonenumber)
 
             val activity = it.getContext() as AppCompatActivity
             val myFragment = activity.fragmentManager.findFragmentById(R.id.chat_frag)
@@ -81,9 +75,9 @@ return  channel_list.size
            // bundle.putString("username", user_data.username)
             bundle.putString("username", user_data.username)
             bundle.putString("unique_id", unique_id)
-            bundle.putString("guest_phonenumber", user_data.guest_phonenumber)
+            bundle.putString("current_user_phonenumber", user_data.guest_phonenumber)
 
-            bundle.putString("current_user_phonenumber", user_data.current_user_phonenumber)
+            bundle.putString("guest_phonenumber", user_data.current_user_phonenumber)
 
 
             val frg=Chats_fragment()

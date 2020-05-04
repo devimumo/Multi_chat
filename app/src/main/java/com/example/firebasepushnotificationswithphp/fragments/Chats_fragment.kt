@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.firebasepushnotificationswithphp.R
 import com.example.firebasepushnotificationswithphp.adapter.Chats_adapter
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db_instanse.channel_list_db_instanse
 import com.example.firebasepushnotificationswithphp.data_class.Chats_data_class
+import com.example.firebasepushnotificationswithphp.ui.chats_list.Chatfragment
 import com.example.firebasepushnotificationswithphp.ui.chats_list.mesu
 import com.example.firebasepushnotificationswithphp.ui.chats_list.root_view
 import com.example.firebasepushnotificationswithphp.work.Check_users_existense
@@ -82,6 +84,8 @@ activity?.nav_view?.visibility=View.GONE
             var current_user_phonenumber= bundle?.get("current_user_phonenumber").toString()
             var guest_phonenumber= bundle?.get("guest_phonenumber").toString()
 
+           // Log.d("guest_phonenumber",guest_phonenumber)
+
             val message_to_send=chat_message.text.toString()
 
             val sdf = SimpleDateFormat(" hh:mm a")
@@ -125,13 +129,30 @@ activity?.nav_view?.visibility=View.GONE
 
         }
 
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+onBackPressed()
+            }
+        })
+
+
         return root_view_
     }
 
+ fun onBackPressed(){
 
+
+     val frg=Chatfragment()
+    activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.hosting_container, frg,"grgg")?.addToBackStack("grgg")?.commit()
+     activity?.nav_view?.visibility=View.VISIBLE
+
+
+}
     fun fanya_final(view: View,vv: String)
     {        val recycler_view = view?.chats_list_recycler_view
 
+        recycler_view.layoutManager = LinearLayoutManager(view.context)
+        (recycler_view.layoutManager as LinearLayoutManager).setStackFromEnd(true)
 
 
         val time_form = SimpleDateFormat("hh:mm:ss")
@@ -169,10 +190,11 @@ activity?.nav_view?.visibility=View.GONE
 
 
             chats_payload_arraylist.add(chats_data)
-            recycler_view.layoutManager = LinearLayoutManager(view.context)
+           // recycler_view.layoutManager = LinearLayoutManager(view.context)
             adap?.notifyDataSetChanged()
             recycler_view.adapter = adap
             (recycler_view.layoutManager as LinearLayoutManager).setStackFromEnd(true)
+
 
         }
 

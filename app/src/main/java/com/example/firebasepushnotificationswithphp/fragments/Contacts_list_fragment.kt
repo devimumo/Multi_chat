@@ -5,14 +5,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.firebasepushnotificationswithphp.R
 import com.example.firebasepushnotificationswithphp.adapter.Contacts_intersected_adapter
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db_instanse.channel_list_db_instanse
 import com.example.firebasepushnotificationswithphp.data_class.contacts_data_class
+import com.example.firebasepushnotificationswithphp.ui.chats_list.Chatfragment
 import com.example.firebasepushnotificationswithphp.ui.chats_list.mesu
 import kotlinx.android.synthetic.main.contacts_list.view.*
+import kotlinx.android.synthetic.main.hosting_activity.*
 import org.json.JSONArray
 import kotlin.collections.ArrayList
 
@@ -31,6 +34,7 @@ class Contacts_list_fragment : Fragment() {
     ): View? {
         views = inflater.inflate(R.layout.contacts_list, container, false)
 
+        activity?.nav_view?.visibility=View.GONE
 
         var views_cast= views
         if (views_cast != null) {
@@ -39,8 +43,42 @@ class Contacts_list_fragment : Fragment() {
 
       //  requestPermission(view)
 
-        return views_cast
-    }
+
+
+    activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            onBackPressed()
+        }
+    })
+
+
+    return views_cast
+}
+
+fun onBackPressed(){
+
+
+    val frg= Chatfragment()
+
+
+    activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.hosting_container, frg,"grgg")?.addToBackStack("grgg")?.commit()
+    activity?.nav_view?.visibility=View.VISIBLE
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     fun contacts_list_recycler( vv: String)

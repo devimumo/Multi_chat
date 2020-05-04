@@ -14,7 +14,7 @@ class save_user_details {
         // String phone_number_= phone_number.getText().toString().trim();
         editor?.remove("username")
         editor?.remove("phone_number")
-        editor?.putString("phone_number", phoneNumber)
+        editor?.putString("phone_number","254"+phoneNumber)
         editor?.putString("username", username)
         // editor.putString("phone_numbers",phone_number_);
         editor?.commit()
