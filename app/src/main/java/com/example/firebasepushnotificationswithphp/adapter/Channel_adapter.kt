@@ -11,8 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.replace
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebasepushnotificationswithphp.R
+import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db_instanse.channel_list_db_instanse
 import com.example.firebasepushnotificationswithphp.data_class.Channel_data_class
 import com.example.firebasepushnotificationswithphp.fragments.Chats_fragment
+import com.example.firebasepushnotificationswithphp.fragments.contacts_db_instanse
 import kotlinx.android.synthetic.main.chat_channel_list.view.*
 import kotlinx.android.synthetic.main.hosting_activity.*
 import kotlinx.android.synthetic.main.hosting_activity.view.*
@@ -43,10 +45,23 @@ return  channel_list.size
         val user_data: Channel_data_class=channel_list[position]
 
        // holder?.itemview.rem
+var instanse= channel_list_db_instanse()
+       var count_r= instanse.select_message_payload_status(c,user_data.unique_id)
+
+        Log.d("counter_status",count_r.toString())
         holder?.itemview.username.text=user_data.username
         holder?.itemview.chat_snippet.text=user_data.chat_snippet
         holder?.itemview.time_sendorreceived.text=user_data.time_in_unix
-        holder?.itemview.guest_phone.text=user_data.guest_phonenumber
+        if (count_r!==0)
+        {
+            holder?.itemview.guest_phone.text=count_r.toString()
+
+        }
+        else
+        {
+            holder.itemview.guest_phone.visibility=View.GONE
+        }
+
 
         holder.itemview.setOnClickListener {
 
@@ -75,8 +90,9 @@ return  channel_list.size
            // bundle.putString("username", user_data.username)
             bundle.putString("username", user_data.username)
             bundle.putString("unique_id", unique_id)
-            bundle.putString("current_user_phonenumber", user_data.guest_phonenumber)
 
+            Log.d("current_user1",user_data.current_user_phonenumber+"---"+user_data.guest_phonenumber)
+            bundle.putString("current_user_phonenumber", user_data.guest_phonenumber)
             bundle.putString("guest_phonenumber", user_data.current_user_phonenumber)
 
 
@@ -84,8 +100,7 @@ return  channel_list.size
             frg.arguments=bundle
 
            var rest= activity.getResources().getIdentifier("frame_cont", "id",activity.getPackageName());
-            activity.supportFragmentManager.beginTransaction()                .replace(R.id.hosting_container, frg,"grgg").addToBackStack("grgg").commit()
-            // .replace(rest, frg).addToBackStack(null).commit()
+            activity.supportFragmentManager.beginTransaction().replace(R.id.hosting_container, frg,"grgg").addToBackStack("grgg").commit()
 
 
         }

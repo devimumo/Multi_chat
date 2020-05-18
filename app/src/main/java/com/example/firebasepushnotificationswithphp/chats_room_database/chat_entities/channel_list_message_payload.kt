@@ -36,7 +36,10 @@ data class channel_list_message_payload (
     var username: String="",
     //
     @ColumnInfo(name= "from")
-    var from: String=""
+    var from: String="",
+
+    @ColumnInfo(name= "read_status")
+var read_status: String="!rade"
 
 ){
 

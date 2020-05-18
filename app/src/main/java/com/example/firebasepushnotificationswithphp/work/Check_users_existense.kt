@@ -17,11 +17,7 @@ import org.json.JSONObject
 
 class Check_users_existense
 
-
-
 {
-
-
     fun check_if_user_exists(data: String,from: String,context: Context)
     {
 
@@ -32,14 +28,10 @@ class Check_users_existense
     }
 
 
-
-
-
-
     suspend fun scheduleJob(data: String, from:String,context: Context) {
         val jsonObject = JSONObject(data)
         val unique_id = jsonObject.getString("unique_id")
-        Log.d("unique_one",unique_id)
+        Log.d("unique_one",data)
         val instanse= channel_list_db_instanse()
         //check whether data set witha unique id is available.
         //if its not(false) then the channel list data payload is added
@@ -78,6 +70,7 @@ instanse.select_user_data(context)
         {
 
 
+            Log.d("unique_one",data)
 
             val channel_list_in=channel_list_insert()
             channel_list_in.update_data_to_channel_list(data,context)

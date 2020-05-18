@@ -7,6 +7,7 @@ class Channel_data_class(
     val time_in_unix: String,
     val time__: String,
     val unique_id: String,
-    val username: String
+    val username: String,
+    val read_status_count: Int=0
 ) {
 }

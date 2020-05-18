@@ -19,7 +19,6 @@ class channel_list_update {
 
         val jsonObject= JSONObject(data)
 
-        Log.d("message_from",data)
         var channel_list_data = channel_list_entity()
        // var message_payload_data = channel_list_message_payload(0)
 

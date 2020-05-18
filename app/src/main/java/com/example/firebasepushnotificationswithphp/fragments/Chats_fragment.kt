@@ -36,7 +36,7 @@ import kotlin.collections.ArrayList
  */
 
 val chats_payload_arraylist = ArrayList<Chats_data_class>()
-
+var unique_id=""
 val instance= channel_list_db_instanse()
 var root_view__: View?= null
 
@@ -59,31 +59,26 @@ activity?.nav_view?.visibility=View.GONE
         val bundle = this.arguments
         if (bundle != null) {
             var username = bundle["username"].toString()
-            var unique_id = bundle["unique_id"].toString()
-            var current_user_phonenumber=bundle["current_user_phonenumber"].toString()
-            var guest_phonenumber=bundle["guest_phonenumber"].toString()
+             unique_id = bundle?.get("unique_id").toString()
+            var current_user_phonenumbers= bundle?.get("current_user_phonenumber").toString()
+            var guest_phonenumbers= bundle?.get("guest_phonenumber").toString()
 
-            Log.d("chat_bundle",username)
+
+            Log.d("bundles_check",current_user_phonenumbers+"-----"+guest_phonenumbers)
 
             instance.select_message_payload_data(root_view_.context,unique_id)
 
-            Toast.makeText(root_view_.context,username,Toast.LENGTH_LONG).show()
-            //  view.username_here.text=username.toString()
-
         }
 
-
-
-
         root_view_.send.setOnClickListener {
-
-
 
             var username = bundle?.get("username").toString()
             var unique_id = bundle?.get("unique_id").toString()
             var current_user_phonenumber= bundle?.get("current_user_phonenumber").toString()
             var guest_phonenumber= bundle?.get("guest_phonenumber").toString()
 
+
+            Log.d("current_use",current_user_phonenumber)
            // Log.d("guest_phonenumber",guest_phonenumber)
 
             val message_to_send=chat_message.text.toString()
@@ -93,7 +88,6 @@ activity?.nav_view?.visibility=View.GONE
 
             val current_time = sdf.format(Date())
             val currentDate = sdf_time_created.format(Date())
-
             val MyPreferences = "Chats"
             val sharedPreferences =
                 root_view_?.context?.getSharedPreferences(MyPreferences, Context.MODE_PRIVATE)
@@ -119,13 +113,12 @@ activity?.nav_view?.visibility=View.GONE
             recycler_view.adapter = adap
             var send_message_instanse=send_message()
             send_message_instanse.send_message(remote_json.toString(),root_view_)
-            var check_check_id_instanse= Check_users_existense()
-            check_check_id_instanse.check_if_user_exists(remote_json.toString(),"resident",root_view_.context)
+           var check_check_id_instanse= Check_users_existense()
+           check_check_id_instanse.check_if_user_exists(remote_json.toString(),"resident",root_view_.context)
 
 
             instance.select_message_payload_data(root_view_.context,unique_id)
 
-            Log.d("currentDate",remote_json.toString())
 
         }
 
@@ -148,6 +141,7 @@ onBackPressed()
 
 
 }
+
     fun fanya_final(view: View,vv: String)
     {        val recycler_view = view?.chats_list_recycler_view
 
@@ -157,15 +151,14 @@ onBackPressed()
 
         val time_form = SimpleDateFormat("hh:mm:ss")
         val time_retreived = time_form.format(Date())
-        Log.d("chat_recycler", "time retreived:" + time_retreived + "\n" + vv)
 
         val jsonObject = JSONArray(vv)
         // mesu.clear()
-        mesu.clear()
         chats_payload_arraylist.clear()
 
 
         for (i in 0..jsonObject.length() - 1) {
+
 
 
             val chats_data_strings = jsonObject.getJSONObject(i)
@@ -182,10 +175,14 @@ onBackPressed()
                 chats_data_strings.getString("username"),
                 chats_data_strings.getString("from")
 
-
-
-
             )
+
+            instance.update_contacts_read_status(view.context,"rade",chats_data_strings.getInt("chats_id"))
+
+            Log.d("bundle", chats_data_strings.getString("current_user_phonenumber")
+                +"--"+                chats_data_strings.getString("guest_phonenumber")
+            )
+
             val adap = view.context?.let { Chats_adapter(chats_payload_arraylist, it) }
 
 
@@ -197,6 +194,8 @@ onBackPressed()
 
 
         }
+
+      instance.select_message_payload_status(view.context, unique_id)
 
         //val recycler_view : RecyclerView= channel_list_recycler_view
 

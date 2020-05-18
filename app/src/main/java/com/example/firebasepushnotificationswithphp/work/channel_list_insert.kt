@@ -19,7 +19,6 @@ class channel_list_insert {
 
         val jsonObject=JSONObject(data)
 
-Log.d("message_from",data)
         var channel_list_data = channel_list_entity()
         //var message_payload_data = channel_list_message_payload(0)
 
@@ -43,6 +42,8 @@ Log.d("message_from",data)
         var time_in_unix=jsonObject.getString("time_kutuma")
 
 
+        Log.d("handle_1",current_user_phonenumber+"---"+guest_phonenumber)
+
         var uuuuid = current_user_phonenumber+"."+guest_phonenumber.plus(currentDate)
         channel_list_data.chat_snippet = chat_snippet;
         channel_list_data.current_user_phonenumber = current_user_phonenumber;
@@ -53,6 +54,7 @@ Log.d("message_from",data)
         channel_list_data.messageid = uuuuid
             channel_list_data.username = username;
         channel_list_data.time_in_unix = time_in_unix;
+        channel_list_data.read_status_count = +1;
 
 
 
@@ -72,7 +74,6 @@ Log.d("message_from",data)
 
         val jsonObject=JSONObject(data)
 
-        Log.d("message_from",data)
         var channel_list_data = channel_list_entity()
         //var message_payload_data = channel_list_message_payload(0)
 
@@ -97,6 +98,9 @@ Log.d("message_from",data)
 
         var uuuuid = current_user_phonenumber+"."+guest_phonenumber.plus(currentDate)
 
+
+        Log.d("handle_2",current_user_phonenumber+"---"+guest_phonenumber)
+
         channel_list_data.chat_snippet = chat_snippet;
         channel_list_data.current_user_phonenumber = current_user_phonenumber;
         channel_list_data.guest_phonenumber =guest_phonenumber ;
@@ -106,9 +110,8 @@ Log.d("message_from",data)
         channel_list_data.messageid = uuuuid
         channel_list_data.username = username;
         channel_list_data.time_in_unix = time_in_unix;
+        channel_list_data.read_status_count = +1;
 
-Log.d("unique_id",unique_id)
-        Log.d("time_in_unix",time_in_unix)
 
 
         //  val context=MainActivity()

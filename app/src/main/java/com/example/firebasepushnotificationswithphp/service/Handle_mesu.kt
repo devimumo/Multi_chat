@@ -34,8 +34,7 @@ val cont=applicationContext
 // TODO(developer): Handle FCM messages here.
 // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         val mes = remoteMessage.data["message"];
-        Log.d("kutoka", "From: " + remoteMessage.data.toString())
-        Log.d("messss", "mes: " + mes)
+
 
         // Check if message contains a data payload.
         if (remoteMessage.data.size > 0) {

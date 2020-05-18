@@ -19,7 +19,6 @@ class Chats_payload_insert {
 
         val jsonObject= JSONObject(data)
 
-        Log.d("message_from",data)
         var chats_message_payload = channel_list_message_payload()
 
 
@@ -53,6 +52,7 @@ class Chats_payload_insert {
         chats_message_payload.username = username;
         chats_message_payload.time_in_unix = time_in_unix;
         chats_message_payload.from=from
+        chats_message_payload.read_status="not_rade"
 
 
 

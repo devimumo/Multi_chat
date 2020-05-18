@@ -36,7 +36,10 @@ var time_sendorreceived: String="",
     var time_in_unix: String="",
 
     @ColumnInfo(name= "username")
-var username: String=""
+var username: String="",
+
+    @ColumnInfo(name= "read_status_count")
+    var read_status_count: Int=0
 ){
 
 }

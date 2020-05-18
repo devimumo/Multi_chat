@@ -2,6 +2,7 @@ package com.example.firebasepushnotificationswithphp.ui.chats_list
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,12 +13,15 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.*
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.firebasepushnotificationswithphp.Hosting_activity
+import com.example.firebasepushnotificationswithphp.Launcher
 import com.example.firebasepushnotificationswithphp.R
 import com.example.firebasepushnotificationswithphp.adapter.Channel_adapter
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db_instanse.channel_list_db_instanse
 import com.example.firebasepushnotificationswithphp.data_class.Channel_data_class
 import com.example.firebasepushnotificationswithphp.fragments.Chats_fragment
 import com.example.firebasepushnotificationswithphp.fragments.Contacts_list_fragment
+import com.example.firebasepushnotificationswithphp.launcher_actions.Get_Instanse_id
 import com.example.firebasepushnotificationswithphp.work.Unique_id
 import com.example.firebasepushnotificationswithphp.work.Update_firebase_instance_id
 import com.google.android.gms.tasks.OnCompleteListener
@@ -25,7 +29,9 @@ import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.fragment_chats_list.view.*
 import kotlinx.android.synthetic.main.get_preferences.view.*
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import java.text.SimpleDateFormat
@@ -84,9 +90,9 @@ class Chatfragment : Fragment() {
 
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-onDestroy()
 
-               // vv?.context?.let { onBackPressed(it) }
+                onBackPressed()
+
             }
         })
 
@@ -95,13 +101,17 @@ onDestroy()
 
 
 
-    fun onBackPressed(context: Context)
+    fun onBackPressed()
     {
+
+        var context=activity?.applicationContext
 
         Log.d("alerted","nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
 
-        val builder = context.let { AlertDialog.Builder(context) }
-        builder.setMessage("Are you sure yo want to exit?")
+
+
+     /*   var builder=activity.applicationContext{->AlertDialog.Builder(activity.applicationContext)}
+        builder?.setMessage("Are you sure yo want to exit?")
             ?.setPositiveButton(R.string.exit_positive,
                 DialogInterface.OnClickListener { dialog, id ->
                     // FIRE ZE MISSILES!
@@ -112,7 +122,7 @@ onDestroy()
                     // User cancelled the dialog
                 })
         // Create the AlertDialog object and return it
-        builder.create()
+        builder?.create()*/
 
 
     }
@@ -188,11 +198,19 @@ onDestroy()
                 contributions_data.getString("time_in_unix"),
                 contributions_data.getString("time_sendorreceived"),
                 contributions_data.getString("unique_id"),
-                contributions_data.getString("username")
+                contributions_data.getString("username"),
+                        contributions_data.getInt("read_status_count")
+
 
             )
 
-            Log.d("guest_phonenumber",contribution_dataa.guest_phonenumber.toString())
+           var counts=
+               view?.context?.let {
+                   instance.select_message_payload_status(
+                       it,contributions_data.getString("unique_id")
+                   )
+               }
+            Log.d("guest_phonenumber",counts.toString()+"--"+contribution_dataa.guest_phonenumber.toString())
 
             val adap = view?.context?.let { Channel_adapter(mesu, it) }
             if (adap != null) {

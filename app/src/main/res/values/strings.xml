@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FirebasePushNotificationswith php</string>
+    <string name="app_name">Tubonge</string>
     <string name="date_format">dd/M/yyyy hh:mm:ss</string>
     <string name="date_format_time_only">hh:mm:ss</string>
     <string name="date_format_year_only">dd/MM/yyyy</string>

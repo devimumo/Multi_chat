@@ -33,8 +33,9 @@ data class channel_list_short_list(
     var time_sendorreceived: String="",
 
     @ColumnInfo(name= "unique_id")
-    var unique_id: String=""
-
+    var unique_id: String="",
+    @ColumnInfo(name= "read_status_count")
+    var read_status_count: Int
 
 
 

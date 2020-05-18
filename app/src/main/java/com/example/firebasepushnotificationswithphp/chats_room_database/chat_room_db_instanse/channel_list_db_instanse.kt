@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.room.Room.databaseBuilder
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.channel_list_entity
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.channel_list_message_payload
+import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.contact_list_entity
+import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.tubonge_contact_list_entity
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db.channel_list_db
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db.contact_list_db
 import com.example.firebasepushnotificationswithphp.fragments.Chats_fragment
@@ -13,7 +15,9 @@ import com.example.firebasepushnotificationswithphp.ui.chats_list.Chatfragment
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
+import org.json.JSONArray
 
+var message_pay_status_count: Int=0
 var ctr: Context? =null
 var statement_data: String=""
 class channel_list_db_instanse {
@@ -33,7 +37,7 @@ class channel_list_db_instanse {
 
         val des= db?.chat_channel_list_DAO()?.select_data()
         val vvvv = Gson()
-
+Log.d("des",des.toString())
         var statement_data=vvvv.toJson(des).toString()
         Log.d("statement_data", "channel short list data converted to json"+statement_data)
       withContext(Main){
@@ -46,7 +50,6 @@ class channel_list_db_instanse {
     fun select_message_payload_data( context: Context,unique_id: String)
     {
 
-Log.d("unique_idds",unique_id)
             CoroutineScope(Dispatchers.IO).launch {
 
                 val db = databaseBuilder(context, channel_list_db::class.java, "chat__db").build()
@@ -55,7 +58,8 @@ Log.d("unique_idds",unique_id)
                 val vvvv = Gson()
 
                 var message_payload=vvvv.toJson(mesu_payload).toString()
-                Log.d("message_payload_data", "message payload data"+statement_data)
+
+                Log.d("message_payload",message_payload)
                 withContext(Main){
                   val to_ui=Chats_fragment()
                    to_ui.chats_recycler_view(message_payload)
@@ -63,6 +67,36 @@ Log.d("unique_idds",unique_id)
             }
 
     }
+
+    fun select_message_payload_status( context: Context,unique_id: String): Int {
+
+        CoroutineScope(Dispatchers.IO).launch {
+
+            val db = databaseBuilder(context, channel_list_db::class.java, "chat__db").build()
+
+            val mesu_payload_status =
+                db.chat_channel_list_DAO().select_message_payload_status("not_rade", unique_id)
+
+
+                val vvvv = Gson()
+
+                var message_payload_st = vvvv.toJson(mesu_payload_status).toString()
+            var jsonObject = JSONArray(message_payload_st)
+
+                message_pay_status_count = jsonObject.length()
+
+
+            Log.d("message_payload_st", message_payload_st+"---"+ message_pay_status_count)
+
+
+
+        }
+
+        return message_pay_status_count
+
+    }
+
+
 
 
     suspend fun check_if_unique_user_id_exists(unique_id: String ,context: Context   ):Boolean
@@ -119,6 +153,21 @@ CoroutineScope(Dispatchers.Default).launch {
 
         }
 
+    fun update_contacts_read_status(context: Context, status: String,chats_id: Int) {
+        val db = databaseBuilder(context, channel_list_db::class.java, "chat__db").build()
+
+
+        // username: String,chat_snippet: String,time_sendorreceived: String,unique_id: String,time_in_unix: String
+
+CoroutineScope(Dispatchers.IO).launch {
+
+    db.chat_channel_list_DAO().update_contacts_read_status(status,chats_id)
+
+}
+
+    }
+
+
     fun update_channel_list(context: Context, channelListData: channel_list_entity) {
         val db = databaseBuilder(context, channel_list_db::class.java, "chat__db").build()
 var username=channelListData.username
@@ -127,11 +176,10 @@ var username=channelListData.username
         var time_in_unix=channelListData.time_in_unix
         var unique_id=channelListData.unique_id
 
+
        // username: String,chat_snippet: String,time_sendorreceived: String,unique_id: String,time_in_unix: String
 
-
         db.chat_channel_list_DAO().update_channel_list(username,chat_snippet,timesendorreceived,unique_id,time_in_unix)
-        Log.d("unique_update",unique_id)
     }
 
     fun insert_data_chats_to_db(context: Context, chatsMessagePayload: channel_list_message_payload) {
@@ -149,18 +197,10 @@ CoroutineScope(Dispatchers.IO).launch {
 
     }
 
-
-
-
-
-
     fun select_contacts_payload( context: Context)
     {
 
-
         ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
         CoroutineScope(Dispatchers.IO).launch {
 
@@ -172,7 +212,7 @@ CoroutineScope(Dispatchers.IO).launch {
             val vvvv = Gson()
 
             var message_payload=vvvv.toJson(mesu_payload).toString()
-            Log.d("contact_payload", "contacts_payload"+message_payload)
+            Log.d("contact_payload", "contacts_payload"+mesu_payload.toString())
             withContext(Main){
                val to_ui=Contacts_list_fragment()
                to_ui.contacts_list_recycler(message_payload)
@@ -189,6 +229,16 @@ CoroutineScope(Dispatchers.IO).launch {
         val db = databaseBuilder(context, contact_list_db::class.java, "contacts_db").build()
 
         db.contact_list_dao().update_contact_list_num("checked",phonenumber)
+    }
+
+
+    suspend fun tubonge_insert(context: Context,covv: tubonge_contact_list_entity)
+    {
+
+
+        val db = databaseBuilder(context, contact_list_db::class.java, "contacts_db").build()
+
+        db.contact_list_dao().tubonge_insert(covv)
     }
 
     fun delete_contact_list(context: Context)

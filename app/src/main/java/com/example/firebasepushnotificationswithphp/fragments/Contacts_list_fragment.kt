@@ -69,22 +69,9 @@ fun onBackPressed(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     fun contacts_list_recycler( vv: String)
     {
 
-        Log.d("imefika_hapa","imefika hapa")
 
         var views_cast= views
 
@@ -93,8 +80,7 @@ fun onBackPressed(){
 
 
         val jsonObject = JSONArray(vv)
-        mesu.clear()
-        chats_payload_arraylist.clear()
+        contacts_payload_arraylist.clear()
 
 
         for (i in 0..jsonObject.length() - 1) {
@@ -121,18 +107,9 @@ fun onBackPressed(){
             recycler_view?.layoutManager = LinearLayoutManager(views_cast?.context)
             adap?.notifyDataSetChanged()
             recycler_view?.adapter = adap
-          /*  if (recycler_view != null) {
-                (recycler_view.layoutManager as LinearLayoutManager).setStackFromEnd(true)
-            }*/
+
 
         }
-
-        //val recycler_view : RecyclerView= channel_list_recycler_view
-
-
-
-
-
 
     }
 

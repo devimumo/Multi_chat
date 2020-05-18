@@ -1,17 +1,21 @@
 package com.example.firebasepushnotificationswithphp.work
 
 import android.content.Context
+import android.os.Build
 import android.provider.ContactsContract
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.room.Room
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_entities.contact_list_entity
 import com.example.firebasepushnotificationswithphp.chats_room_database.chat_room_db.contact_list_db
+import com.example.firebasepushnotificationswithphp.fragments.contacts_db_instanse
+import com.example.firebasepushnotificationswithphp.fragments.instance
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
+var acc_name: String=""
 var name: String=""
 var phonenumber: String=""
 var contact_list_array=contact_list_entity()
@@ -28,6 +32,7 @@ class Retreive_contacts {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.P)
     fun contas(context: Context) {
 
       /*  android.widget.Toast.makeText(
@@ -59,7 +64,11 @@ CoroutineScope(Dispatchers.IO).launch {
                 phoneNumber =
                     phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
 
+                 acc_name =
+                    phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET))
 
+
+                Log.d("tuone", name+"-------------"+phoneNumber+"----"+acc_name)
 
 
 
@@ -78,24 +87,33 @@ CoroutineScope(Dispatchers.IO).launch {
 
 
 
-             Log.d("contact_list_array", contact_list_array.toString())
-                db.contact_list_dao().insert(contact_list_array )
 
+             //   if (acc_name.equals("com.google")
 
+                var check_phonenumber_existense=db.contact_list_dao().check_existense(phonenumber_set )
+                if (check_phonenumber_existense.size<=0)
+                {
+                       db.contact_list_dao().insert(contact_list_array )
+
+                }
             }
 
-
+                   phones.close()
         var jsonss = Gson()
            var contact_list_jsons = jsonss.toJson(contact_number_array_list)
             var contactarray_list_jsons = jsonss.toJson(contactModel_ArrayList_full)
-            Log.d("contact,,",contact_list_jsons)
        //     insert_contacts_data(contactarray_list_jsons, context, contact_list_array)
 
         cross_check_contacts.network_io_for_crosscheck(context,contact_list_jsons)
 
-    //    iterate_contact_array(contactarray_list_jsons, context, contact_number_array_list, contactModel_ArrayList_full)
 
 
+
+    }
+
+
+    fun check_phonenumber_existense()
+    {
 
     }
 

@@ -20,7 +20,6 @@ class Update_firebase_instance_id
 
 //val view=Channel_list_activity()
 //val phoner="713899899";
-         Log.d("getting_details",phoner+username+"this is the message")
 
          val requestQueue= Volley.newRequestQueue(context)
         val url="https://project-daudi.000webhostapp.com/ladies_group/fcm/update_instanse_id.php?&instanse_id="+instance_id+"&phone_number="+phoner+"&username="+username

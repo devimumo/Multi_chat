@@ -1,12 +1,16 @@
 package com.example.firebasepushnotificationswithphp
 
 import android.Manifest
+import android.Manifest.permission
 import android.R
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.firebasepushnotificationswithphp.launcher_actions.Get_phonenumber_username_alertdialog
@@ -24,6 +28,7 @@ class Launcher : AppCompatActivity() {
     var get_phonenumber_from_sharedprefernces=Get_phonenumber_username_alertdialog()
 
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.example.firebasepushnotificationswithphp.R.layout.activity_launcher)
@@ -47,14 +52,55 @@ class Launcher : AppCompatActivity() {
             requestPermission(this)
 
         }
+
+        this?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+            }
+        })
+
     }
 
+    fun onback()
+    {
+          }
+
+    @RequiresApi(Build.VERSION_CODES.P)
     fun requestPermission(context: Context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return
+
+
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED) {
+
+Toast.makeText(this,"",Toast.LENGTH_LONG).show()
+            }
+            else{
+
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    var instanse= Retreive_contacts()
+                    instanse.contas(context)
+                }
+                val iintent= Intent(context, Hosting_activity::class.java)
+                context.startActivity(iintent)
+
+            }
+           /* if (permission == PackageManager.PERMISSION_GRANTED) {
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    var instanse= Retreive_contacts()
+                    instanse.contas(context)
+                }
+                val iintent= Intent(context, Hosting_activity::class.java)
+                context.startActivity(iintent)
+
+
+            } else
+            {}*/
         }
         val permission =
-            ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS)
+            ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS)
         if (permission == PackageManager.PERMISSION_GRANTED) {
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -79,6 +125,7 @@ class Launcher : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
